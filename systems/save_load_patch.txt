@@ -1,0 +1,8 @@
+def delete_slot(slot_index):
+    meta = _ensure_meta()
+    meta['slots'][str(slot_index)] = {"name": "", "exists": False, "last_played": None}
+    _save_json(META_FILE, meta)
+    try:
+        os.remove(_slot_file(slot_index))
+    except FileNotFoundError:
+        pass

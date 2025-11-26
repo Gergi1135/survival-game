@@ -1,0 +1,321 @@
+Rendben Gergő, akkor teljes, brutálisan őszinte, mindenre kiterjedő game design terv jön. Nem fogom simogatni: ha valami szar, megmondom, ha valami működik, ráerősítünk.
+
+A cél: egy 2D-s zombie survival base-builder + raid játékmenet, ami NEM egy újabb unalmas generikus indie.
+
+Alább megkapod:
+
+Core gameplay loop
+
+Bázisrendszer
+
+Raidek / küldetés rendszerek
+
+Zombi AI és típusok
+
+Progresszió és metarendszer
+
+Art + UI + audio design
+
+Tech stack (Python) és implementációs stratégia
+
+Mi lehet gyenge pont & hogyan erősítjük meg
+
+Kész? Akkor megyünk.
+
+1) Core Gameplay Loop (A JÁTÉK LELKE)
+
+Ha ez gyenge → a játék is gyenge.
+Ez a loop most jó, feszes és karakteres:
+
+Gergő’s Ultimate Loop
+
+Bázis menedzselése: gyógyulás, craft, építés, túlélők kezelése.
+
+Elkészül egy “Scavenge plan”: mit akarsz szerezni, mennyit bírsz el, milyen útvonal.
+
+Kimenetel a map szélére → Raid pálya
+
+Lootolás → nagy kockázat, nagy reward.
+
+Zaj növekszik → jön a Horde Timer
+
+Menekülsz haza (ha túl sokat vársz, elbuksz mindent)
+
+Hazaviszed az anyagot → bázis fejlődik
+
+Nő a világ “Threat Level”-je → zombik, események, tél közeledik
+
+Ez egy kerek progresszió.
+
+2) BÁZIS – nem menü, hanem egy komplex rendszer
+
+A legtöbb amatőr itt bukik el. Ne legyen belőle "crafting station simulator".
+
+A) Túlélők / NPC rendszer
+
+Mindegyik túlélőnek van:
+
+Statok: courage, stamina, perception
+
+Trait-ek: pl. paranoiás, rohadt hangos, ex-katona, cigis (morált csökkenti ha nincs cigi)
+
+Hangulat (morál)
+
+Stressz-szint
+
+Ha valaki túl stresszes:
+
+elbújik,
+
+rosszul járőrözik,
+
+összeveszik másokkal,
+
+szétszedi a bázist éjjel → drama = történet
+
+B) Bázis modulok
+
+Fal / csapdák
+
+Őrtornyok (de őrszemnek AI kell → látja a zombit, lövi, de nem mindig tökéletes)
+
+Konyha
+
+Áramfejlesztő
+
+Vízszűrő
+
+Orvosi részleg
+
+Workshop (fegyverjavítás)
+
+Mindegyik modulnak lehet:
+
+condition
+
+resource cost
+
+efficiency
+
+zajtermelés (!! nagyon fontos)
+
+C) Bázis támadások – nem fix hullámok
+
+hordák akkor jönnek, ha túl sok zajt csinálsz
+
+véletlen esemény: elszabadult tűz, elromlott generátor, betörő survivor
+
+A bázisod egy organikus puzzle.
+
+3) RAID / WORLD MAP – itt él a játék 50%-a
+
+Ez kell, hogy vérpezsdítő legyen.
+
+A) Térképek
+
+Előre gyártott „biomok”:
+
+Kisváros rész
+
+Ipari park
+
+Elhagyott iskola
+
+Katonai depó
+
+Forest region
+
+Bunker entrance
+
+Mindegyiknek:
+
+saját loot pool
+
+saját veszélytípus
+
+saját zombitípus arány
+
+B) Zaj rendszer (Az egyik legerősebb ötlet)
+
+Minden fegyver, lépés, ablak betörés → zajpont.
+A zajpontok globálisan hatnak a mapra.
+Amikor elér egy kritikus szintet → jön a Horda.
+
+C) Horda rendszer
+
+A horda egy folyamatosan növekedő ellenséges tömeg, nem hullám
+
+Lassú → fut → sprint → áttör → eláraszt
+
+Csak menekülni tudsz, megölni nem
+
+Ez feszültséget ad.
+
+D) Lootolás
+
+Interaktív tárolók
+
+Zajjal járó loot (pl. fiók csikorgása)
+
+Ritka “legendary loot”: katonai rádió, solar panel, gyógyszeradagoló
+
+E) Permadeath
+
+Ha a karaktered meghal → vége.
+És az item is ott marad, amit vitt.
+
+4) Zombi AI és Típusok
+
+Ne legyen Minecraft-cirka szintű semmicske.
+
+Zombi AI alapok
+
+Hangra reagál
+
+Fényre reagál
+
+Mozgásminták: patroll → idle → chase → frenzy
+
+Ha sokan vannak összehívják egymást
+
+Típusok
+
+Walker – lassú, de csoportban veszélyes
+
+Runner – sprintel, alacsony HP
+
+Bruiser – tank, falromboló
+
+Crawler – padlón mászik, hang nélkül
+
+Screamer – ordít, hordát hív
+
+Mutált (endgame) – fényre érzékeny, stealth boss
+
+5) Progresszió – a játék motorja
+
+Ha ez nincs rendesen összerakva, kuka az egész projekt.
+
+A) Tech Tree
+
+Három ág:
+
+Defense (csapdák, falak, torony egységek)
+
+Science (gyógyszer, generátor, napenergia)
+
+Survivors (morál, AI, munkahatékonyság)
+
+B) Karakter fejlődés
+
+melee
+
+ranged
+
+stealth
+
+medical
+
+mechanics
+
+Nem RPG grind, hanem használati alapú fejlődés.
+
+C) Világ nehezedése
+
+több zombi
+
+mutációs szint nő
+
+tél → kevesebb élelem
+
+eső → látótáv csökken
+
+6) Art & Design
+
+Ne csinálj generikus pixelartot. Akkor halott a projekt.
+
+Stílus
+
+Sötét tónus
+
+Nagy kontraszt
+
+Pixelart + volumetrikus fények (Godot-szerű look, Pythonban is megoldható Pygame+shaderrel)
+
+UI
+
+Minimalista
+
+Katonai UI + piros figyelmeztetők
+
+Horda közeledését jelző oszlop a jobb oldalon
+
+Audio
+
+Messziről hallatszó morgás
+
+Lépések ütemei → ha futsz, nő a zaj
+
+Túlélők beszéde (rövid voiceline-ok)
+
+7) TECH ÉS IMPLEMENTÁCIÓ PYTHONBAN
+
+Pythonban meg tudod csinálni, csak:
+
+Pygame vagy
+
+Arcade library (jobb modern API) vagy
+
+Godot-Python binding (ha profi akarod)
+
+Minimum architektúra
+
+entity class
+
+component rendszer (health, ai, position stb.)
+
+map handler
+
+event rendszer
+
+noise system
+
+save/load json
+
+Ha akarod, összerakom neked a projekt struktúrát is.
+
+8) MI LEHET GYENGE / HOL FOGNAK MEGHALNI AZ AMATŐR PROJEKTEK?
+
+És hogy ne ess bele:
+
+Gyenge: generikus zombik
+
+→ Adj nekik viselkedést, hangot, variációt.
+
+Gyenge: bázis menü-szerű
+
+→ Adj NPC-knek problémákat, hangulatot, drámát.
+
+Gyenge: unalmas pályák
+
+→ Scriptelt minieventek, romló épületek, random hordák.
+
+Gyenge: nincs kockázat
+
+→ Permadeath + horda timer.
+
+Gyenge: túl nagy scope
+
+→ Építs rétegenként, ne mindent egyszerre.
+
+Mi legyen a következő lépés?
+
+Választhatsz:
+
+Megcsináljuk a teljes GDD-t (game design document).
+
+Megcsináljuk a Python projekt struktúrát és architektúrát.
+
+Kidolgozzuk részletesen a bázist / zombikat / raidet / tech tree-t.
+
+Megtervezünk egy MVP-t (minimális játszható verzió).
